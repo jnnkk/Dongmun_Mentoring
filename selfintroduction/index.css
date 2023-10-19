@@ -1,3 +1,18 @@
+@keyframes blink {
+    0% {
+        border: 5px solid transparent; /* 초기 테두리 설정 */
+    }
+    50% {
+        border: 5px solid white; /* 중간 지점에서 테두리를 깜빡임 */
+    }
+    75% {
+        border: 5px solid white; /* 중간 지점에서 테두리를 깜빡임 */
+    }
+    100% {
+        border: 5px solid transparent; /* 다시 초기 테두리 설정 */
+    }
+}
+
 body {
     background-color: white;
     margin: 0;
@@ -13,6 +28,7 @@ header {
     left: 0;
     width: 100%;
     text-align: center;
+    z-index: 5;
 }
 header ul {
     list-style: none;
@@ -45,23 +61,34 @@ section{
 footer{
     height: 60px;
     background-color: black;
+    color: white;
 }
 h1{
-    font-size: 50px;
+    font-size: 65px;
     font-weight: bold;
     margin: 0px;
     padding: 0px;
 }
 h2{
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     margin: 20px 0px 20px 0px;
     padding: 0px;
 }
 h3{
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     margin: 20px 0px 20px 0px;
+    padding: 0px;
+}
+p{
+    font-weight: bold;
+    font-size: 20px;
+}
+i{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 20px;
     padding: 0px;
 }
 img{
@@ -72,6 +99,20 @@ img{
     margin: 10px;
     padding: 0px;
 }
+#profile_image, #army_image, #school_image{
+    animation: blink 3s infinite ease-in;
+    animation-delay: 3s;
+}
+.img_box img{
+    width: 200px;
+    height: 200px;
+    border-radius: 0%;
+    margin: 10px;
+    padding: 0px;
+}
+.img_box img:hover{
+    opacity: 0.5;
+}
 
 .profile{
     margin: 150px;
@@ -79,20 +120,38 @@ img{
 }
 .profile_info{
     margin-top: 100px;
-    height: 800px;
 }
 .profile_about{
     margin-top: 50px;
 }
 
 .history_info{
-    height: 2000px;
+    background-color: lightseagreen;
 }
 .school{
     margin: 150px;
     padding: 0px;
 }
 .military{
+    margin: 150px;
+    padding: 0px;
+}
+.favorite_info{
+    background-color: lightpink;
+}
+.fav_item{
+    margin: 80px 0px 80px 0px;
+    padding: 0px;
+}
+.fav_item:hover {
+    box-shadow: 0 0 10px white;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+.img_box{
+    display: inline-block;
+    margin: 30px 0 0 0;
+}
+.contact{
     margin: 150px;
     padding: 0px;
 }
