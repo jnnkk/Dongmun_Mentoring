@@ -1,0 +1,17 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "동문멘토링",
+  "bin": {
+    "notice": "./index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jnnkk",
+  "license": "ISC",
+  "dependencies": {
+    "node-html-parser": "^6.1.11"
+  }
+}
