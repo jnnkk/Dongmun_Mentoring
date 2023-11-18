@@ -21,7 +21,7 @@ const crawling = async (page) => {
     const viewarray = $(".board-mg-l10"); // 조회수
 
     for (let i = 0; i < 10; i++) {
-      data_list[i] = { title : $(textarray[i]).text().trim(), view : $(viewarray[i]).text().trim() };
+      data_list[i] = { title : $(textarray[i]).text().trim(), view : +($(viewarray[i]).text().trim()) };
     } // 객채 배열에 데이터 저장
 
     data_list.forEach(function(item, index, array) {
