@@ -1,26 +1,38 @@
-#!/usr/bin/env node
+const axios = require("axios");
+const cheerio = require("cheerio");
 
-const https = require('https');
-const parser = require('node-html-parser');
-const url = 'https://comedu.skku.edu/comedu/notice.do';
-const header = {
-    headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'// 실제 브라우저로 접속한 것처럼 보이게 하는 헤더
-    }
+/** URL을 통해 해당 페이지 html 가져오기, page = 해당 페이지 */
+const getHtml = async (page) => {
+  try {
+    return await axios.get("https://www.skku.edu/skku/campus/skk_comm/notice01.do?mode=list&&articleLimit=10&article.offset=" + page);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-// get 메소드 호출
-https.get(
-    url, header, (res) => {
-    let data = "";
-    res.on('data', (chunk) => {
-        data += chunk;
+/** html 파싱하여 데이터 추출하기 , page = 해당 페이지*/
+const crawling = async (page) => {
+  getHtml(page)
+  .then(html => {
+    const data_list = [];
+
+    const $ = cheerio.load(html.data);
+    const textarray = $("dt.board-list-content-title").children("a"); // 제목
+    const viewarray = $(".board-mg-l10"); // 조회수
+
+    for (let i = 0; i < 10; i++) {
+      data_list[i] = { title : $(textarray[i]).text().trim(), view : $(viewarray[i]).text().trim() };
+    } // 객채 배열에 데이터 저장
+
+    data_list.forEach(function(item, index, array) {
+        console.log(item.title);
+        console.log(item.view);
+        console.log("------------------------------------");
     });
-    res.on('end', () => {
-        const root = parser.parse(data);
-        const list = root.querySelectorAll('.board-list-content-title > a');
-        list.forEach((item) => {
-            console.log(item.innerText.trim(), '\n');
-        });
-    });
-});
+    console.log("\n");
+  })
+};
+
+for (let i = 0; i < 30; i+=10) {
+  crawling(i);
+}
